@@ -19,7 +19,7 @@ import m3_laptop_code as m3
 def get_my_frame(root, window, mqtt_sender):
     # Construct your frame:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    frame_label = ttk.Label(frame, text="PUT_YOUR_NAME_HERE")
+    frame_label = ttk.Label(frame, text="Alex Smith")
     frame_label.grid()
     # TODO 2: Put your name in the above.
 
