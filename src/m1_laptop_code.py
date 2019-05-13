@@ -20,11 +20,28 @@ def get_my_frame(root, window, mqtt_sender):
     # Construct your frame:
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame_label = ttk.Label(frame, text="Alex Smith")
-    frame_label.grid()
-    # TODO 2: Put your name in the above.
+    # DONE 2: Put your name in the above.
 
     # Add the rest of your GUI to your frame:
-    # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    # DONE: Put your GUI onto your frame (using sub-frames if you wish).
+    execute_label = ttk.Label(frame, text='Click this when ready')
+    direction_label = ttk.Label(frame, text='Enter direction')
+    speed_label = ttk.Label(frame, text='Enter speed')
+    distance_label = ttk.Label(frame, text='Enter distance')
+    execute_button = ttk.Button(frame, text="Execute")
+    direction_box = ttk.Entry(frame, width=18)
+    speed_box = ttk.Entry(frame, width=8)
+    distance_box = ttk.Entry(frame, width=8)
+    frame_label.grid()
+    execute_label.grid()
+    execute_button.grid()
+    direction_label.grid()
+    direction_box.grid()
+    speed_label.grid()
+    speed_box.grid()
+    distance_label.grid()
+    distance_box.grid()
+
 
     # Return your frame:
     return frame
@@ -46,4 +63,7 @@ class MyLaptopDelegate(object):
     # TODO: Add methods here as needed.
 
 
-# TODO: Add functions here as needed.
+# DONE: Add functions here as needed.
+
+
+
