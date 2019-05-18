@@ -24,25 +24,30 @@ def get_my_frame(root, window, mqtt_sender):
 
     # Add the rest of your GUI to your frame:
     # DONE: Put your GUI onto your frame (using sub-frames if you wish).
-    execute_label = ttk.Label(frame, text='Click this when ready')
-    direction_label = ttk.Label(frame, text='Enter direction')
+    direction_label = ttk.Label(frame, text="Choose a direction: ")
+    forwards_button = ttk.Button(frame, text="Forwards")
+    backwards_button = ttk.Button(frame, text="Backwards")
     speed_label = ttk.Label(frame, text='Enter speed')
     distance_label = ttk.Label(frame, text='Enter distance')
-    execute_button = ttk.Button(frame, text="Execute")
-    direction_box = ttk.Entry(frame, width=18)
     speed_box = ttk.Entry(frame, width=8)
     distance_box = ttk.Entry(frame, width=8)
+    function_label = ttk.Label(frame, text='Executes the move_until function.')
+    function_button = ttk.Button(frame, text='Execute')
     frame_label.grid()
-    execute_label.grid()
-    execute_button.grid()
     direction_label.grid()
-    direction_box.grid()
+    forwards_button.grid(row=2, column=0)
+    backwards_button.grid(row=2, column=1)
     speed_label.grid()
     speed_box.grid()
     distance_label.grid()
     distance_box.grid()
+    function_label.grid()
+    function_button.grid()
 
 
+    forwards_button["command"] = lambda: move_forward(speed_box, distance_box, mqtt_sender)
+    backwards_button["command"] = lambda: move_backward(speed_box, distance_box, mqtt_sender)
+    function_button["command"] = lambda: move_until(speed_box, distance_box, mqtt_sender)
     # Return your frame:
     return frame
 
@@ -65,5 +70,19 @@ class MyLaptopDelegate(object):
 
 # DONE: Add functions here as needed.
 
+def move_forward(speed_box, distance_box, mqtt_sender):
+    speed = speed_box.get()
+    distance = distance_box.get()
+    mqtt_sender.send_message("move_forward", [speed, distance])
+
+def move_backward(speed_box, distance_box, mqtt_sender):
+    speed = speed_box.get()
+    distance = distance_box.get()
+    mqtt_sender.send_message("move_backward", [speed, distance])
+
+def move_until(speed_box, distance_box, mqtt_sender):
+    speed = speed_box.get()
+    distance = distance_box.get()
+    mqtt_sender.send_message("move_until", [speed, distance])
 
 

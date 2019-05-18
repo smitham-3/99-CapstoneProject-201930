@@ -31,7 +31,54 @@ class MyRobotDelegate(object):
         print_message_received("go", [left_motor_speed, right_motor_speed])
         self.robot.drive_system.go(left_motor_speed, right_motor_speed)
 
+    def move_forward(self, speed, distance):
+        self.robot.drive_system.right_motor.reset_position()
+        self.go(int(speed), int(speed))
+        while True:
+            if self.robot.drive_system.right_motor.get_position() >= (88.149*int(distance)):
+                self.robot.drive_system.stop()
+                break
+
+    def move_backward(self, speed, distance):
+        self.robot.drive_system.right_motor.reset_position()
+        self.go(-int(speed), -int(speed))
+        while True:
+            if abs(self.robot.drive_system.right_motor.get_position()) >= (88.149*int(distance)):
+                self.robot.drive_system.stop()
+                break
+
+    def get_distance(self):
+        distarray = []
+        max = 0
+        sum = 0
+        for k in range(5):
+            distarray = distarray + [self.robot.sensor_system.ir_proximity_sensor.get_distance()]
+        for k in range(len(distarray)):
+            if distarray[k] > max:
+                max = distarray[k]
+        min = distarray[0]
+        for k in range(len(distarray)):
+            if distarray[k] < min:
+                min = distarray[k]
+        for k in range(len(distarray)):
+            sum = sum + distarray[k]
+        sum = (sum - (max + min))/3
+        return sum
+
+    def move_until(self, speed, distance):
+        self.go(int(speed), int(speed))
+        while True:
+            dist = self.get_distance()
+            print(dist)
+            if dist < int(distance):
+                self.robot.drive_system.right_motor.turn_off()
+                self.robot.drive_system.left_motor.turn_off()
+                break
+
+
+
     # DONE: Add methods here as needed.
+
 
 
 
